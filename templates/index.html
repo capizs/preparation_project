@@ -2,24 +2,24 @@
 
 {% block content %}
 <h1>{{ headline }}</h1>
-{% for item in works %}
-<div class="col-md6 border rounded" style="color: black;">
-   <a href='/texts/{{ item.id|int() }}' class='straight_link'>
-      <h2>{{item.title}}</h2>
-
-   </a>
-
-   <div style="overflow-x:hidden; text-overflow: ellipsis; font-size: 14px;">
-      Жанр - <a href="/filtered_by_genre/{{ item.genre_id }}"><b>{{item.genre.name}}</b></a><br>
-      Автор - <a href="/profile/{{item.user_id}}"><b>{{item.user.name}}</b><a>
-            <br>Дата написания - {{item.created_date}}
-   </div>
-   <br>
-   <div style="overflow-x:hidden; text-overflow: ellipsis;">
-      {{item.description}}
-   </div>
-
+<a href='/{{ user.id|int() }}' class='straight_link'>
+   <h2>Ваш профиль, {{ user.name }}</h2>
+</a>
+<br>
+<div style="overflow-x:hidden; text-overflow: ellipsis;">
+   Вы уже решили {{user.answers}} и из {{}}
 </div>
-{% endfor %}
+
+<div class="col-md6 border rounded" style="color: black;">
+   <div style="overflow-x:hidden; text-overflow: ellipsis; font-size: 14px;">
+      <a href="//tasks/{{task_id}}"><b>Ударения</b><a>
+   </div>
+</div>
+
+<div class="col-md6 border rounded" style="color: black;">
+   <div style="overflow-x:hidden; text-overflow: ellipsis; font-size: 14px;">
+      <a href="/tasks/{{task_id}}"><b>Словарные слова</b><a>
+   </div>
+</div>
 
 {% endblock %}

@@ -1,16 +1,34 @@
 from flask import *
-from flask_restful import Api
+from flask import jsonify
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
+from forms.user import RegisterForm, LoginForm
+from sqlalchemy.orm import joinedload
+import sqlalchemy
+from sqlalchemy.sql.expression import desc
+from requests import get, post, delete
 
-from data import db_session
+
+from data.tasks import Taskss
+from data.users import User
+from data import db_session, works_api
+from flask_restful import reqparse, abort, Api
 
 app = Flask(__name__)
 api = Api(app)
 app.config["SECRET_KEY"] = "yandexlyceum_secret_key"
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 def main():
-    db_session.global_inits("db/tasks.db")
-
+    db_session.global_init("db/tasks.db")
+    app.register_blueprint(works_api.blueprint)
     app.run()
 
 
