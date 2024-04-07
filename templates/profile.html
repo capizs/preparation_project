@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user.name }}</h1>
+<p style="font-size: 15px;">
+   <br>
+   <b>Вопросов отвечено</b>: {{ answers|length() }}
+   <br>
+</p>
+<br>
+{% set logined = current_user.get_id() == user.id|string() %}
+
+{% if logined %}
+<a href="/tasks" class="btn btn-secondary">Пройти больше!</a>
+{% endif %}
+<br>
+
+{% if logined %}
+{% for item in wrong_answers %}
+<div class="col-md6 border rounded" style="color: black;">
+   <a href='/tasks/{{ item.id|int() }}' class='straight_link'>
+      <h2>{{item.question}}</h2>
+   </a>
+
+</div>
+{% endfor %}
+{% endif %}
+
+<br>
+{% if logined %}
+<a href="/logout" class="btn btn-outline-danger" style="height: 40px; width: 200px;">
+   Выйти
+</a>
+{% endif %}
+
+{% endblock %}
