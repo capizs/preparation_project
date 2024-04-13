@@ -1,25 +1,46 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h1>{{ headline }}</h1>
-<a href='/{{ user.id|int() }}' class='straight_link'>
-   <h2>Ваш профиль, {{ user.name }}</h2>
-</a>
-<br>
-<div style="overflow-x:hidden; text-overflow: ellipsis;">
-   Вы уже решили {{user.answers}} и из {{}}
-</div>
-
-<div class="col-md6 border rounded" style="color: black;">
-   <div style="overflow-x:hidden; text-overflow: ellipsis; font-size: 14px;">
-      <a href="//tasks/{{task_id}}"><b>Ударения</b><a>
-   </div>
-</div>
-
-<div class="col-md6 border rounded" style="color: black;">
-   <div style="overflow-x:hidden; text-overflow: ellipsis; font-size: 14px;">
-      <a href="/tasks/{{task_id}}"><b>Словарные слова</b><a>
-   </div>
-</div>
-
-{% endblock %}
+<!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>
+        </head>
+    <body>
+    </body>
+</html>

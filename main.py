@@ -1,119 +1,36 @@
 from flask import *
-from flask import jsonify
-from flask_login import (
-    LoginManager,
-    login_user,
-    logout_user,
-    login_required,
-    current_user,
-)
-from forms.user import RegisterForm, LoginForm
-from sqlalchemy.orm import joinedload
-import sqlalchemy
-from sqlalchemy.sql.expression import desc
-from requests import get, post, delete
+from flask_restful import Api
 
-
-from data.tasks import Taskss
-from data.users import User
-from data import db_session, works_api
-from flask_restful import reqparse, abort, Api
+from data import db_session
 
 app = Flask(__name__)
 api = Api(app)
 app.config["SECRET_KEY"] = "yandexlyceum_secret_key"
-login_manager = LoginManager()
-login_manager.init_app(app)
 
 
 def main():
     db_session.global_init("db/tasks.db")
-    app.register_blueprint(works_api.blueprint)
     app.run()
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", headline="Главная")
+    return render_template("index.html")
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    db_sess = db_session.create_session()
-    return db_sess.query(User).get(user_id)
+@app.route("/user_name")
+def account():
+    pass
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            return redirect("/")
-        return render_template(
-            "login.html", message="Неправильный логин или пароль", form=form
-        )
-    return render_template("login.html", title="Авторизация", form=form)
+@app.route("/user_name/statistics")
+def statistics():
+    pass
 
 
-@app.route("/register", methods=["GET", "POST"])
-def reqister():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        if form.password.data != form.password_again.data:
-            return render_template(
-                "register.html",
-                title="Регистрация",
-                form=form,
-                message="Пароли не совпадают",
-            )
-        db_sess = db_session.create_session()
-        if db_sess.query(User).filter(User.email == form.email.data).first():
-            return render_template(
-                "register.html",
-                title="Регистрация",
-                form=form,
-                message="Такой пользователь уже есть",
-            )
-        user = User(name=form.name.data, email=form.email.data, about=form.about.data)
-        user.set_password(form.password.data)
-        db_sess.add(user)
-        db_sess.commit()
-        login_user(user, remember=True)
-        return redirect("/")
-    return render_template("register.html", title="Регистрация", form=form)
-
-
-@app.route("/logout")
-def logout():
-    logout_user()
-
-    return redirect("/")
-
-
-@app.route("/profile/<int:user_id>")
-def profile(user_id):
-
-    db_sess = db_session.create_session()
-    # answers = (
-    #     db_sess.query(User)
-    #     .filter(User.)
-    #     .all()
-    # )
-    # wrong_answers = (
-    #     db_sess.query(User)
-    #     .filter(User.)
-    #     .all()
-    # )
-
-    # return render_template(
-    #     "profile.html",
-    #     user=load_user(user_id),
-    #     answers=answers,
-    #     wrong_answers=wrong_answers,
-    # )
+@app.route("/tasks")
+def tasks():
+    pass
 
 
 @app.errorhandler(404)
