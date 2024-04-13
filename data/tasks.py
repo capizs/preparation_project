@@ -1,5 +1,6 @@
 import datetime
 import sqlalchemy
+from sqlalchemy.orm import relationship
 from sqlalchemy import orm
 from sqlalchemy_serializer import SerializerMixin
 
@@ -13,5 +14,4 @@ class Tasks(SqlAlchemyBase, SerializerMixin):
     question = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     answer = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    #  user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
-    user = orm.relation("User")
+    tasks = relationship("Answers", back_populates="task")
