@@ -17,7 +17,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    answers = relationship("Answers", back_populates="user")
+    answers = relationship("Answer", back_populates="user")
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

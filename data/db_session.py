@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+
 import sqlalchemy.ext.declarative as dec
 
 SqlAlchemyBase = dec.declarative_base()
@@ -21,9 +22,8 @@ def global_init(db_file):
     print(f"Подключение к базе данных по адресу {conn_str}")
 
     engine = sa.create_engine(conn_str, echo=False)
-    __factory = orm.sessionmaker(bind=engine)
+    __factory = orm.sessionmaker(bind=engine, autoflush=False)
 
-    # noinspection PyUnresolvedReferences
     from . import __all_models
 
     SqlAlchemyBase.metadata.create_all(engine)

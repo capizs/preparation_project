@@ -12,6 +12,6 @@ class Tasks(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     question = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    answer = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    answers = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    tasks = relationship("Answers", back_populates="task")
+    tasks = relationship("Answer", back_populates="task")

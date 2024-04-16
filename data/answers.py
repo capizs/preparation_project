@@ -14,4 +14,4 @@ class Answer(SqlAlchemyBase, SerializerMixin):
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = relationship("User", back_populates="answers")
     task_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("tasks.id"))
-    task = relationship("Task", back_populates="answers")
+    task = relationship("Tasks", back_populates="tasks")
