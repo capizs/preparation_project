@@ -11,8 +11,11 @@ from flask_login import (
 from forms.user import RegisterForm, LoginForm
 
 from data.users import User
+from data.tasks import Tasks
 
 from data import db_session
+
+from random import randint
 
 app = Flask(__name__)
 api = Api(app)
@@ -90,16 +93,20 @@ def logout():
 
 @app.route("/profile/<int:user_id>")
 def profile(user_id):
-    """
-    Страница профиля
-    """
     db_sess = db_session.create_session()
     return render_template("profile.html", user=load_user(user_id))
 
 
-@app.route("/tasks")
-def tasks():
-    pass
+# def get_random_task(task_id):
+#     db_sess = db_session.create_session()
+
+
+@app.route("/tasks/<int:task_id>")
+def tasks(task_id):
+    db_sess = db_session.create_session()
+    question = db_sess.query(Tasks).get(task_id)
+    print(question, "!!!")
+    return render_template("tasks.html")
 
 
 @app.errorhandler(404)

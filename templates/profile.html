@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ user.name }}</h1>
 <p style="font-size: 15px;">
    <br>
    <b>Вопросов отвечено</b>
@@ -11,7 +10,7 @@
 {% set logined = current_user.get_id() == user.id|string() %}
 
 {% if logined %}
-<a href="/tasks" class="btn btn-secondary">Пройти больше!</a>
+<a href="/tasks/1" class="btn btn-secondary">Пройти больше!</a>
 {% endif %}
 <br>
 
