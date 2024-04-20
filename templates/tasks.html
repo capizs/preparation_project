@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>{{ task.question }}</h3>
+<h1>{{ task.question }}</h1>
+<input class="form-control" type="text" placeholder="Например: ударЕние">
 
-{% for item in answers %}
-<button type="button">{{ item }}</button>
-{% endfor %}
 
 {% endblock %}
