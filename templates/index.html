@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Здравствуйте</h1>
+<a onclick="location.href = `tasks/${Math.floor((Math.random() * 5) + 1)}`" class="btn btn-success">Решать
+   задачи</a>
 {% endblock %}

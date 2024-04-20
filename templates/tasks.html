@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Это вопросы</h3>
+<h3>{{ task.question }}</h3>
+
+{% for item in answers %}
+<button type="button">{{ item }}</button>
+{% endfor %}
+
 {% endblock %}

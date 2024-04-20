@@ -15,7 +15,7 @@ from data.tasks import Tasks
 
 from data import db_session
 
-from random import randint
+from random import randint, shuffle
 
 app = Flask(__name__)
 api = Api(app)
@@ -97,16 +97,33 @@ def profile(user_id):
     return render_template("profile.html", user=load_user(user_id))
 
 
-# def get_random_task(task_id):
-#     db_sess = db_session.create_session()
+def get_random_answers(task_id):
+    db_sess = db_session.create_session()
+
+    res = []
+    for i in range(3):
+        while True:
+            random_num = randint(1, 5)
+            if random_num != task_id:
+                ans = db_sess.query(Tasks).get(random_num).answers
+                if ans not in res:
+                    res.append(ans)
+                    break
+
+    return res
 
 
 @app.route("/tasks/<int:task_id>")
 def tasks(task_id):
     db_sess = db_session.create_session()
-    question = db_sess.query(Tasks).get(task_id)
-    print(question, "!!!")
-    return render_template("tasks.html")
+    task = db_sess.query(Tasks).get(task_id)
+
+    # получение рандомных ответов, добавление правильного ответа, перемешивание всех ответов
+    answers = get_random_answers(task_id)
+    answers.append(task.answers)
+    shuffle(answers)
+
+    return render_template("tasks.html", task=task, answers=answers)
 
 
 @app.errorhandler(404)
