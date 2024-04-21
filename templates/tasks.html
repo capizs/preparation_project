@@ -1,8 +1,45 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h1>{{ task.question }}</h1>
-<input class="form-control" type="text" placeholder="Например: ударЕние">
+<input id="answer" placeholder="Например: ударЕние" />
+<button id="submit" onclick="showAnswer()">Ответить</button>
+<font id="correct" style="font-size: 0px"> {{ task.answers }} </font>
+<font id="taskid" style="font-size: 0px"> {{ task.id }} </font>
 
+<button class="button" id="nextButton"
+   onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`"><span>Дальше</span></button>
+
+<div id="snackbar">Здесь должен быть результат</div>
+<script>
+   function showAnswer() {
+      var userAnswer = document.getElementById("answer").value;
+      var correctAnswer = document.getElementById("correct").innerText;
+      var taskId = document.getElementById("taskid").innerText;
+
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+
+      // Check if user answer is empty
+      if (userAnswer == "") {
+         x.style.backgroundColor = "rgba(255, 169, 0, 1);"
+         x.textContent = "Вы забыли ввести ответ;)";
+      } else if (userAnswer == correctAnswer) {
+         x.style.backgroundColor = "rgba(94, 140, 97, 1)";
+         x.textContent = "Молодец, верно!";
+      } else {
+         x.style.backgroundColor = "rgba(201, 112, 100, 1)";
+         x.textContent = "Увы, неверно. Верный ответ: " + correctAnswer;
+         // Save task ID to database if answer is wrong
+         saveTaskIdToDatabase(taskId);
+      }
+
+      // Show the snackbar
+      x.className = "show";
+   }
+
+   function saveTaskIdToDatabase(taskId) {
+      // Code to save task ID to database
+   }
+
+</script>
 
 {% endblock %}

@@ -12,6 +12,7 @@ from forms.user import RegisterForm, LoginForm
 
 from data.users import User
 from data.tasks import Tasks
+from data.answers import Answer
 
 from data import db_session
 
@@ -91,10 +92,12 @@ def logout():
     return redirect("/")
 
 
-@app.route("/profile/<int:user_id>")
+@app.route("/profile/id=<int:user_id>")
 def profile(user_id):
     db_sess = db_session.create_session()
-    return render_template("profile.html", user=load_user(user_id))
+    user_info = db_sess.query(Answer).get(user_id)
+
+    return render_template("profile.html", user=load_user(user_id), user_info=user_info)
 
 
 @app.route("/tasks/id=<int:task_id>")

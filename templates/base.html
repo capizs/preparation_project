@@ -7,8 +7,13 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="icon" type="image/x-icon" href="/images/site_ico.ico">
 
    <style>
+      body {
+         font-family: "Raleway", sans-serif;
+      }
+
       .straight_link {
          text-decoration: none;
          color: black;
@@ -19,7 +24,7 @@
       }
 
       .dark-mode {
-         background-color: rgba(93, 93, 93, 1);
+         background-color: rgba(83, 83, 83, 1);
          color: rgba(255, 245, 242, 1);
       }
 
@@ -65,8 +70,134 @@
       .topnav-right {
          float: right;
       }
+
+      /* The snackbar - position it at the bottom and in the middle of the screen */
+      #snackbar {
+         visibility: hidden;
+         /* Hidden by default. Visible on click */
+         min-width: 250px;
+         /* Set a default minimum width */
+         margin-left: -125px;
+         /* Divide value of min-width by 2 */
+         background-color: #ffa900;
+         /* Black background color */
+         color: #fff5f2;
+         /* White text color */
+         text-align: center;
+         /* Centered text */
+         border-radius: 4px;
+         /* Rounded borders */
+         padding: 16px;
+         /* Padding */
+         position: fixed;
+         /* Sit on top of the screen */
+         z-index: 1;
+         /* Add a z-index if needed */
+         left: 50%;
+         /* Center the snackbar */
+         bottom: 30px;
+         /* 30px from the bottom */
+      }
+
+      /* Show the snackbar when clicking on a button (class added with JavaScript) */
+      #snackbar.show {
+         visibility: visible;
+         /* Show the snackbar */
+         /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+         -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+         animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+
+      /* Animations to fade the snackbar in and out */
+      @-webkit-keyframes fadein {
+         from {
+            bottom: 0;
+            opacity: 0;
+         }
+
+         to {
+            bottom: 30px;
+            opacity: 1;
+         }
+      }
+
+      @keyframes fadein {
+         from {
+            bottom: 0;
+            opacity: 0;
+         }
+
+         to {
+            bottom: 30px;
+            opacity: 1;
+         }
+      }
+
+      @-webkit-keyframes fadeout {
+         from {
+            bottom: 30px;
+            opacity: 1;
+         }
+
+         to {
+            bottom: 0;
+            opacity: 0;
+         }
+      }
+
+      @keyframes fadeout {
+         from {
+            bottom: 30px;
+            opacity: 1;
+         }
+
+         to {
+            bottom: 0;
+            opacity: 0;
+         }
+      }
+
+      .button {
+         border-radius: 4px;
+         background-color: rgba(255, 169, 0, 1);
+         border: none;
+         color: rgba(255, 245, 242, 1);
+         text-align: center;
+         font-size: 14px;
+         padding: 10px;
+         width: 100px;
+         transition: all 0.5s;
+         cursor: pointer;
+         margin: 5px;
+      }
+
+      .button span {
+         cursor: pointer;
+         display: inline-block;
+         position: relative;
+         transition: 0.5s;
+      }
+
+      .button span:after {
+         content: '\00bb';
+         position: absolute;
+         opacity: 0;
+         top: 0;
+         right: -20px;
+         transition: 0.5s;
+      }
+
+      .button:hover span {
+         padding-right: 25px;
+      }
+
+      .button:hover span:after {
+         opacity: 1;
+         right: 0;
+      }
    </style>
-   <title>{{title}}</title>
+   <title>{{ title }}</title>
 </head>
 
 <body>
@@ -84,8 +215,8 @@
          <!-- Right-aligned links -->
          {% if current_user.is_authenticated %}
          <div class="topnav-right">
-            <a onclick="myFunction()">Тёмная тема</a>
-            <a class="navbar-brand" href="/profile/{{ current_user.id }}">{{ current_user.name }}</a>
+            <a onclick="changeTheme()">Тёмная тема</a>
+            <a class="navbar-brand" href="/profile/id={{ current_user.id }}">{{ current_user.name }}</a>
             {% else %}
             <p>
                <a href="/register">Зарегистрироваться</a>
@@ -98,11 +229,24 @@
       </div>
 
       <script>
-         function myFunction() {
+         function changeTheme() {
             var element = document.body;
-            element.classList.toggle("dark-mode");
+            if (element.classList.contains("dark-mode")) {
+               element.classList.remove("dark-mode");
+               localStorage.setItem("theme", "light");
+            } else {
+               element.classList.add("dark-mode");
+               localStorage.setItem("theme", "dark");
+            }
+         }
+
+         var storedTheme = localStorage.getItem("theme");
+         if (storedTheme === "dark") {
+            document.body.classList.add("dark-mode");
          }
       </script>
+
+
 
    </header>
    <!-- Begin page content -->
