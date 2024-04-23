@@ -13,6 +13,7 @@ from forms.user import RegisterForm, LoginForm
 from data.users import User
 from data.tasks import Tasks
 from data.answers import Answer
+from forms.tasks import AnswerForm
 
 from data import db_session
 
@@ -104,6 +105,15 @@ def profile(user_id):
 def tasks(task_id):
     db_sess = db_session.create_session()
     task = db_sess.query(Tasks).get(task_id)
+
+    form = AnswerForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        ans = Answers(user_id=current_user.id, task_id=task)
+        db_sess.add(ans)
+        db_sess.commit()
+
+        return redirect(f"/profile/{current_user.id}")
 
     return render_template("tasks.html", task=task)
 

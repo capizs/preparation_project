@@ -213,19 +213,22 @@
          <a href="/">Решаликус</a>
 
          <!-- Right-aligned links -->
+        
          {% if current_user.is_authenticated %}
          <div class="topnav-right">
-            <a onclick="changeTheme()">Тёмная тема</a>
             <a class="navbar-brand" href="/profile/id={{ current_user.id }}">{{ current_user.name }}</a>
-            {% else %}
+         </div>
+         {% else %}
+         <div class="topnav-right">
             <p>
                <a href="/register">Зарегистрироваться</a>
                <a href="/login">Войти</a>
             </p>
-            {% endif %}
          </div>
-
-
+         {% endif %}
+         <div class="topnav-right">
+            <a onclick="changeTheme()">Сменить тему</a>
+         </div>
       </div>
 
       <script>
