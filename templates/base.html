@@ -3,11 +3,11 @@
 
 <head>
    <meta charset="utf-8">
+   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="icon" type="image/x-icon" href="/images/site_ico.ico">
 
    <style>
       body {
@@ -26,6 +26,16 @@
       .dark-mode {
          background-color: rgba(83, 83, 83, 1);
          color: rgba(255, 245, 242, 1);
+
+         .straight_link {
+            text-decoration: none;
+            color: white;
+         }
+
+         .straight_link:hover {
+            color: white;
+         }
+
       }
 
       /* Add a black background color to the top navigation */
@@ -69,93 +79,6 @@
       /* Right-aligned section inside the top navigation */
       .topnav-right {
          float: right;
-      }
-
-      /* The snackbar - position it at the bottom and in the middle of the screen */
-      #snackbar {
-         visibility: hidden;
-         /* Hidden by default. Visible on click */
-         min-width: 250px;
-         /* Set a default minimum width */
-         margin-left: -125px;
-         /* Divide value of min-width by 2 */
-         background-color: #ffa900;
-         /* Black background color */
-         color: #fff5f2;
-         /* White text color */
-         text-align: center;
-         /* Centered text */
-         border-radius: 4px;
-         /* Rounded borders */
-         padding: 16px;
-         /* Padding */
-         position: fixed;
-         /* Sit on top of the screen */
-         z-index: 1;
-         /* Add a z-index if needed */
-         left: 50%;
-         /* Center the snackbar */
-         bottom: 30px;
-         /* 30px from the bottom */
-      }
-
-      /* Show the snackbar when clicking on a button (class added with JavaScript) */
-      #snackbar.show {
-         visibility: visible;
-         /* Show the snackbar */
-         /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-         -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-         animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-
-      /* Animations to fade the snackbar in and out */
-      @-webkit-keyframes fadein {
-         from {
-            bottom: 0;
-            opacity: 0;
-         }
-
-         to {
-            bottom: 30px;
-            opacity: 1;
-         }
-      }
-
-      @keyframes fadein {
-         from {
-            bottom: 0;
-            opacity: 0;
-         }
-
-         to {
-            bottom: 30px;
-            opacity: 1;
-         }
-      }
-
-      @-webkit-keyframes fadeout {
-         from {
-            bottom: 30px;
-            opacity: 1;
-         }
-
-         to {
-            bottom: 0;
-            opacity: 0;
-         }
-      }
-
-      @keyframes fadeout {
-         from {
-            bottom: 30px;
-            opacity: 1;
-         }
-
-         to {
-            bottom: 0;
-            opacity: 0;
-         }
       }
 
       .button {
@@ -205,15 +128,18 @@
       <div class="topnav">
 
          <!-- Centered link -->
+         {% if current_user.is_authenticated %}
          <div class="topnav-centered">
-            <a onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`" class="active">Задачи</a>
+            <a onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`" style="cursor: default"
+               class="active">Задачи</a>
          </div>
+         {% endif %}
+
 
          <!-- Left-aligned links (default) -->
          <a href="/">Решаликус</a>
 
          <!-- Right-aligned links -->
-        
          {% if current_user.is_authenticated %}
          <div class="topnav-right">
             <a class="navbar-brand" href="/profile/id={{ current_user.id }}">{{ current_user.name }}</a>
@@ -227,7 +153,7 @@
          </div>
          {% endif %}
          <div class="topnav-right">
-            <a onclick="changeTheme()">Сменить тему</a>
+            <a onclick="changeTheme()" style="cursor: default">Сменить тему</a>
          </div>
       </div>
 

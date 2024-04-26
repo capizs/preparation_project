@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if wrong_answers|length == 0 %}
 <p style="font-size: 15px;">
    <br>
-   <b>Вопросов отвечено</b>
    <br>
+<h2>Молодец, у тебя нет неправильных ответов, продолжай в том же духе!</h2>
 </p>
 <br>
+{% else %}
+<p style="font-size: 15px;">
+   <br>
+   <br>
+<h2>Вопросы, на которые ты дал неправильный ответ: </h2>
+</p>
+<br>
+{% endif %}
+
 {% set logined = current_user.get_id() == user.id|string() %}
 
 {% if logined %}
 {% for item in wrong_answers %}
-<div class="col-md6 border rounded" style="color: black;">
-   <a href='/tasks/{{ item.id|int() }}' class='straight_link'>
-      <h2>bim bam bom</h2>
+<div class="col-md6 border rounded" style="color: black; text-align: center;">
+   <a href='/tasks/id={{ item }}' class='straight_link'>
+      <h2>Задача №{{ item }}</h2>
    </a>
-
 </div>
+<br>
+
 {% endfor %}
 {% endif %}
 

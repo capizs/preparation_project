@@ -1,59 +1,41 @@
-{% extends "base.html" %} {% block content %}
-<h1>{{ task.question }}</h1>
-<input id="answer" placeholder="Например: ударЕние" />
-<button id="submit" onclick="showAnswer()">Ответить</button>
+{% extends "base.html" %}
 
-<button class="button" id="nextButton" style="display: none"
-   onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`">
+{% block content %}
+{% if answer == 0 %}
+<br>
+<br>
+<h1>{{ task.question }}</h1>
+<br>
+<form action method="post">
+   {{ form.hidden_tag() }}
+
+   {% for item in form %}
+   {% if loop.index <= 1 %} <p>
+      {{ item(class="form-control") }}
+      </p>
+      {% endif %}
+      {% endfor %}
+      <br>
+      <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+      {{ message }}
+
+</form>
+{% else %}
+{% if answer == 1%}
+<h2>Молодец, верно!</h2>
+{% else %}
+<br>
+<br>
+<h2>Увы, неверно. Правильный ответ: {{ task.answers }}</h2>
+<h5>Ты можешь сделать работу над ошибками в профиле;) </h5>
+{% endif %}
+<br>
+<br>
+<button class="button" onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`">
    <span>Дальше</span>
 </button>
+{% endif %}
 
-<font id="correct" style="font-size: 0px"> {{ task.answers }} </font>
-<font id="taskid" style="font-size: 0px"> {{ task.id }} </font>
 
-<div id="snackbar">Здесь должен быть результат</div>
-
-<script>
-   function showAnswer() {
-      var userAnswer = document.getElementById("answer").value;
-      var correctAnswer = document.getElementById("correct").innerText;
-      var taskId = document.getElementById("taskid").innerText;
-
-      // Get the snackbar DIV
-      var x = document.getElementById("snackbar");
-
-      // Disable input field if not empty
-      if (userAnswer != "") {
-         document.getElementById("answer").disabled = true;
-         document.getElementById("nextButton").style.display = "block";
-      }
-
-      // Check if user answer is empty
-      if (userAnswer == "") {
-         x.style.backgroundColor = "rgba(255, 169, 0, 1);";
-         x.textContent = "Вы забыли ввести ответ;)";
-      } else if (userAnswer == correctAnswer.slice(0, -1)) {
-         x.style.backgroundColor = "rgba(94, 140, 97, 1)";
-         x.textContent = "Молодец, верно!";
-      } else if (userAnswer != correctAnswer.slice(0, -1)) {
-         x.style.backgroundColor = "rgba(201, 112, 100, 1)";
-         x.textContent = "Увы, ты не прав. Верный ответ:" + correctAnswer.splice(0, -1);
-         // Save task ID to database if answer is wrong
-         saveTaskIdToDatabase(taskId);
-      }
-
-      // Show the snackbar
-      x.className = "show";
-
-      // After 3 seconds, remove the show class from DIV
-      setTimeout(function () {
-         x.className = x.className.replace("show", "");
-      }, 3000);
-   }
-
-   function saveTaskIdToDatabase(taskId) {
-      // Code to save task ID to database
-   }
-</script>
 
 {% endblock %}

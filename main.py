@@ -34,7 +34,7 @@ def main():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", title="Главная")
 
 
 @login_manager.user_loader
@@ -96,26 +96,45 @@ def logout():
 @app.route("/profile/id=<int:user_id>")
 def profile(user_id):
     db_sess = db_session.create_session()
-    user_info = db_sess.query(Answer).get(user_id)
+    user_info = db_sess.query(Answer).filter(Answer.user_id == user_id).all()
+    wrong_answers = sorted([x.task_id for x in user_info])
 
-    return render_template("profile.html", user=load_user(user_id), user_info=user_info)
+    return render_template(
+        "profile.html",
+        user=load_user(user_id),
+        wrong_answers=wrong_answers,
+        title="Профиль",
+    )
 
 
-@app.route("/tasks/id=<int:task_id>")
+@app.route("/tasks/id=<int:task_id>", methods=["GET", "POST"])
 def tasks(task_id):
     db_sess = db_session.create_session()
     task = db_sess.query(Tasks).get(task_id)
+    db_sess = db_session.create_session()
+    user_info = db_sess.query(Answer).filter(Answer.user_id == current_user.id).all()
+    answers = sorted([x.task_id for x in user_info])
 
     form = AnswerForm()
     if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        ans = Answers(user_id=current_user.id, task_id=task)
-        db_sess.add(ans)
-        db_sess.commit()
+        answer = form.answer.data
 
-        return redirect(f"/profile/{current_user.id}")
+        if answer == task.answers:
+            answer = 1
+            if task.id in answers:
+                db_sess = db_session.create_session()
+                db_sess.query(Answer).filter(Answer.task_id == task.id).delete()
+                db_sess.commit()
+        else:
+            if task.id not in answers:
+                db_sess = db_session.create_session()
+                ans = Answer(user_id=current_user.id, task_id=task.id)
+                db_sess.add(ans)
+                db_sess.commit()
 
-    return render_template("tasks.html", task=task)
+        return render_template("tasks.html", task=task, answer=answer, title="Ответ")
+
+    return render_template("tasks.html", task=task, form=form, answer=0, title="Задачa")
 
 
 @app.errorhandler(404)
