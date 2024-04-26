@@ -1,41 +1,32 @@
-{% extends "base.html" %}
-
-{% block content %}
-{% if answer == 0 %}
-<br>
-<br>
+{% extends "base.html" %} {% block content %} {% if answer == 0 %}
+<br />
+<br />
 <h1>{{ task.question }}</h1>
-<br>
+<br />
 <form action method="post">
-   {{ form.hidden_tag() }}
-
-   {% for item in form %}
-   {% if loop.index <= 1 %} <p>
-      {{ item(class="form-control") }}
-      </p>
-      {% endif %}
-      {% endfor %}
-      <br>
-      <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-      {{ message }}
-
+  {{ form.hidden_tag() }} {% for item in form %} {% if loop.index <= 1 %}
+  <p>{{ item(class="form-control") }}</p>
+  {% endif %} {% endfor %}
+  <br />
+  <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+  {{ message }}
 </form>
-{% else %}
-{% if answer == 1%}
+{% else %} {% if answer == 1%}
+<br />
+<br />
 <h2>Молодец, верно!</h2>
 {% else %}
-<br>
-<br>
+<br />
+<br />
 <h2>Увы, неверно. Правильный ответ: {{ task.answers }}</h2>
-<h5>Ты можешь сделать работу над ошибками в профиле;) </h5>
+<h5>Ты можешь сделать работу над ошибками в профиле;)</h5>
 {% endif %}
-<br>
-<br>
-<button class="button" onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`">
-   <span>Дальше</span>
+<br />
+<br />
+<button
+  class="button"
+  onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`"
+>
+  <span>Дальше</span>
 </button>
-{% endif %}
-
-
-
-{% endblock %}
+{% endif %} {% endblock %}
