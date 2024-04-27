@@ -1,345 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
 
-    <style>
-      body {
-        font-family: "Raleway", sans-serif;
-      }
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <style>
+    body {
+      font-family: "Raleway", sans-serif;
+    }
+
+    .straight_link {
+      text-decoration: none;
+      color: black;
+    }
+
+    .straight_link:hover {
+      color: black;
+    }
+
+    .dark-mode {
+      background-color: rgba(83, 83, 83, 1);
+      color: rgba(255, 245, 242, 1);
 
       .straight_link {
         text-decoration: none;
-        color: black;
+        color: white;
       }
 
       .straight_link:hover {
-        color: black;
+        color: white;
+      }
+    }
+
+    /* Add a black background color to the top navigation */
+    .topnav {
+      position: relative;
+      background-color: rgba(39, 39, 39, 1);
+      overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+      float: left;
+      color: rgba(255, 245, 242, 1);
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+      background-color: rgba(255, 169, 0, 1);
+      color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+      background-color: rgba(94, 140, 97, 1);
+      color: rgba(255, 245, 242, 1);
+    }
+
+    /* Centered section inside the top navigation */
+    .topnav-centered a {
+      float: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+      float: right;
+    }
+
+    .button {
+      border-radius: 4px;
+      background-color: rgba(255, 169, 0, 1);
+      border: none;
+      color: rgba(255, 245, 242, 1);
+      text-align: center;
+      font-size: 14px;
+      padding: 10px;
+      width: 100px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button span:after {
+      content: "\00bb";
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button:hover span {
+      padding-right: 25px;
+    }
+
+    .button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+
+    *:before,
+    *:after {
+      z-index: -1;
+    }
+
+    [class^="btn-"] {
+      position: static;
+      display: block;
+      overflow: hidden;
+      width: 500%;
+      height: 200px;
+      max-width: 1100px;
+      margin: 5px;
+      top: 380px;
+      text-transform: uppercase;
+      border: 3px solid currentColor;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      line-height: 6.8;
+      font-size: 30px;
+    }
+
+    @-webkit-keyframes criss-cross-left {
+      0% {
+        left: -20px;
       }
 
-      .dark-mode {
-        background-color: rgba(83, 83, 83, 1);
-        color: rgba(255, 245, 242, 1);
-
-        .straight_link {
-          text-decoration: none;
-          color: white;
-        }
-
-        .straight_link:hover {
-          color: white;
-        }
-      }
-
-      /* Add a black background color to the top navigation */
-      .topnav {
-        position: relative;
-        background-color: rgba(39, 39, 39, 1);
-        overflow: hidden;
-      }
-
-      /* Style the links inside the navigation bar */
-      .topnav a {
-        float: left;
-        color: rgba(255, 245, 242, 1);
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-      }
-
-      /* Change the color of links on hover */
-      .topnav a:hover {
-        background-color: rgba(255, 169, 0, 1);
-        color: black;
-      }
-
-      /* Add a color to the active/current link */
-      .topnav a.active {
-        background-color: rgba(94, 140, 97, 1);
-        color: rgba(255, 245, 242, 1);
-      }
-
-      /* Centered section inside the top navigation */
-      .topnav-centered a {
-        float: none;
-        position: absolute;
-        top: 50%;
+      50% {
         left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      /* Right-aligned section inside the top navigation */
-      .topnav-right {
-        float: right;
-      }
-
-      .button {
-        border-radius: 4px;
-        background-color: rgba(255, 169, 0, 1);
-        border: none;
-        color: rgba(255, 245, 242, 1);
-        text-align: center;
-        font-size: 14px;
-        padding: 10px;
-        width: 100px;
-        transition: all 0.5s;
-        cursor: pointer;
-        margin: 5px;
-      }
-
-      .button span {
-        cursor: pointer;
-        display: inline-block;
-        position: relative;
-        transition: 0.5s;
-      }
-
-      .button span:after {
-        content: "\00bb";
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: -20px;
-        transition: 0.5s;
-      }
-
-      .button:hover span {
-        padding-right: 25px;
-      }
-
-      .button:hover span:after {
-        opacity: 1;
-        right: 0;
-      }
-
-      *:before,
-      *:after {
-        z-index: -1;
-      }
-
-      [class^="btn-"] {
-        position: static;
-        display: block;
-        overflow: hidden;
-        width: 500%;
-        height: 200px;
-        max-width: 1100px;
-        margin: 5px;
-        top: 380px;
-        text-transform: uppercase;
-        border: 3px solid currentColor;
-        border-radius: 20px;
-        font-weight: bold;
-        text-decoration: none;
-        text-align: center;
-        line-height: 6.8;
-        font-size: 30px;
-      }
-
-      @-webkit-keyframes criss-cross-left {
-        0% {
-          left: -20px;
-        }
-        50% {
-          left: 50%;
-          width: 20px;
-          height: 20px;
-        }
-        100% {
-          left: 50%;
-          width: 1150px;
-          height: 1150px;
-        }
-      }
-
-      @keyframes criss-cross-left {
-        0% {
-          left: -20px;
-        }
-        50% {
-          left: 50%;
-          width: 20px;
-          height: 20px;
-        }
-        100% {
-          left: 50%;
-          width: 1150px;
-          height: 1150px;
-        }
-      }
-      @-webkit-keyframes criss-cross-right {
-        0% {
-          right: -20px;
-        }
-        50% {
-          right: 50%;
-          width: 20px;
-          height: 20px;
-        }
-        100% {
-          right: 50%;
-          width: 1150px;
-          height: 1150px;
-        }
-      }
-      @keyframes criss-cross-right {
-        0% {
-          right: -20px;
-        }
-        50% {
-          right: 50%;
-          width: 20px;
-          height: 20px;
-        }
-        100% {
-          right: 50%;
-          width: 1150px;
-          height: 1150px;
-        }
-      }
-      .btn-11 {
-        position: relative;
-        color: #c97064;
-      }
-      .btn-11:before,
-      .btn-11:after {
-        position: absolute;
-        top: 50%;
-        content: "";
         width: 20px;
         height: 20px;
-        background-color: #c97064;
-        border-radius: 50%;
       }
-      .btn-11:before {
+
+      100% {
+        left: 50%;
+        width: 1150px;
+        height: 1150px;
+      }
+    }
+
+    @keyframes criss-cross-left {
+      0% {
         left: -20px;
-        transform: translate(-50%, -50%);
       }
-      .btn-11:after {
+
+      50% {
+        left: 50%;
+        width: 20px;
+        height: 20px;
+      }
+
+      100% {
+        left: 50%;
+        width: 1150px;
+        height: 1150px;
+      }
+    }
+
+    @-webkit-keyframes criss-cross-right {
+      0% {
         right: -20px;
-        transform: translate(50%, -50%);
-      }
-      .btn-11:hover {
-        color: #fad6d1;
-      }
-      .btn-11:hover:before {
-        -webkit-animation: criss-cross-left 0.8s both;
-        animation: criss-cross-left 0.8s both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-      }
-      .btn-11:hover:after {
-        -webkit-animation: criss-cross-right 0.8s both;
-        animation: criss-cross-right 0.8s both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-      }
-      body,
-      html {
-        height: 100%;
       }
 
-      * {
-        box-sizing: border-box;
+      50% {
+        right: 50%;
+        width: 20px;
+        height: 20px;
       }
 
-      .bg-text-1 {
-        background-color: #ffa900; /* Fallback color */
-        background-color: #ffa900; /* Black w/opacity/see-through */
-        color: white;
-        font-weight: bold;
-        border: 3px solid #ffa900;
-        border-radius: 20px;
-        position: absolute;
-        top: 250px;
-        /* left: 50%; */
-        left: 70%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        height: 300px;
-        width: 543px;
-        padding: 50px;
-        text-align: center;
+      100% {
+        right: 50%;
+        width: 1150px;
+        height: 1150px;
+      }
+    }
+
+    @keyframes criss-cross-right {
+      0% {
+        right: -20px;
       }
 
-      .img {
-        position: absolute;
-        top: 250px;
-        left: 30%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        height: 350px;
-        width: 350px;
-        padding: 25px;
+      50% {
+        right: 50%;
+        width: 20px;
+        height: 20px;
       }
-    </style>
-    <title>{{ title }}</title>
-  </head>
 
-  <body>
-    <header>
-      <div class="topnav">
-        <!-- Left-aligned links (default) -->
-        <a href="/">Решаликус</a>
+      100% {
+        right: 50%;
+        width: 1150px;
+        height: 1150px;
+      }
+    }
 
-        <!-- Right-aligned links -->
-        {% if current_user.is_authenticated %}
-        <div class="topnav-right">
-          <a class="navbar-brand" href="/profile/id={{ current_user.id }}"
-            >{{ current_user.name }}</a
-          >
-        </div>
-        {% else %}
-        <div class="topnav-right">
-          <p>
-            <a href="/register">Зарегистрироваться</a>
-            <a href="/login">Войти</a>
-          </p>
-        </div>
-        {% endif %}
-        <div class="topnav-right">
-          <a onclick="changeTheme()" style="cursor: default">Сменить тему</a>
-        </div>
+    .btn-11 {
+      position: relative;
+      color: #c97064;
+    }
+
+    .btn-11:before,
+    .btn-11:after {
+      position: absolute;
+      top: 50%;
+      content: "";
+      width: 20px;
+      height: 20px;
+      background-color: #c97064;
+      border-radius: 50%;
+    }
+
+    .btn-11:before {
+      left: -20px;
+      transform: translate(-50%, -50%);
+    }
+
+    .btn-11:after {
+      right: -20px;
+      transform: translate(50%, -50%);
+    }
+
+    .btn-11:hover {
+      color: #fad6d1;
+    }
+
+    .btn-11:hover:before {
+      -webkit-animation: criss-cross-left 0.8s both;
+      animation: criss-cross-left 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+
+    .btn-11:hover:after {
+      -webkit-animation: criss-cross-right 0.8s both;
+      animation: criss-cross-right 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .bg-text-1 {
+      background-color: #ffa900;
+      /* Fallback color */
+      background-color: #ffa900;
+      /* Black w/opacity/see-through */
+      color: white;
+      font-weight: bold;
+      border: 3px solid #ffa900;
+      border-radius: 20px;
+      position: absolute;
+      top: 250px;
+      /* left: 50%; */
+      left: 70%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      height: 300px;
+      width: 543px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .img {
+      position: absolute;
+      top: 250px;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      height: 350px;
+      width: 350px;
+      padding: 25px;
+    }
+  </style>
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <header>
+    <div class="topnav">
+      <!-- Left-aligned links (default) -->
+      <a href="/">Решаликус</a>
+
+      <!-- Right-aligned links -->
+      {% if current_user.is_authenticated %}
+      <div class="topnav-right">
+        <a class="navbar-brand" href="/profile/id={{ current_user.id }}">{{ current_user.name }}</a>
       </div>
+      {% else %}
+      <div class="topnav-right">
+        <p>
+          <a href="/register">Зарегистрироваться</a>
+          <a href="/login">Войти</a>
+        </p>
+      </div>
+      {% endif %}
+      <div class="topnav-right">
+        <a onclick="changeTheme()" style="cursor: default">Сменить тему</a>
+      </div>
+    </div>
 
-      <script>
-        function changeTheme() {
-          var element = document.body;
-          if (element.classList.contains("dark-mode")) {
-            element.classList.remove("dark-mode");
-            localStorage.setItem("theme", "light");
-          } else {
-            element.classList.add("dark-mode");
-            localStorage.setItem("theme", "dark");
-          }
+    <script>
+      function changeTheme() {
+        var element = document.body;
+        if (element.classList.contains("dark-mode")) {
+          element.classList.remove("dark-mode");
+          localStorage.setItem("theme", "light");
+        } else {
+          element.classList.add("dark-mode");
+          localStorage.setItem("theme", "dark");
         }
+      }
 
-        var storedTheme = localStorage.getItem("theme");
-        if (storedTheme === "dark") {
-          document.body.classList.add("dark-mode");
-        }
-      </script>
-    </header>
-    <!-- Begin page content -->
-    <main role="main" class="container">{% block content %}{% endblock %}</main>
-  </body>
-  <footer>
-    <div style="height: 30px"></div>
-  </footer>
+      var storedTheme = localStorage.getItem("theme");
+      if (storedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+    </script>
+  </header>
+  <!-- Begin page content -->
+  <main role="main" class="container">{% block content %}{% endblock %}</main>
+</body>
+<footer>
+  <div style="height: 30px"></div>
+</footer>
+
 </html>

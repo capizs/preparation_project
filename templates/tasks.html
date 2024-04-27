@@ -4,12 +4,13 @@
 <h1>{{ task.question }}</h1>
 <br />
 <form action method="post">
-  {{ form.hidden_tag() }} {% for item in form %} {% if loop.index <= 1 %}
-  <p>{{ item(class="form-control") }}</p>
-  {% endif %} {% endfor %}
-  <br />
-  <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-  {{ message }}
+   {{ form.hidden_tag() }} {% for item in form %} {% if loop.index <= 1 %} <p>{{ item(class="form-control",
+      onkeydown="if (event.keyCode == 13)
+      document.getElementById('submitButton').click()") }}</p>
+      {% endif %} {% endfor %}
+      <br />
+      <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+      {{ message }}
 </form>
 {% else %} {% if answer == 1%}
 <br />
@@ -23,10 +24,10 @@
 {% endif %}
 <br />
 <br />
-<button
-  class="button"
-  onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 5) + 1)}`"
->
-  <span>Дальше</span>
+<button class="button" onclick="if (event.keyCode == 13 || event.type == 'click') {
+   location.href = `/tasks/id=${Math.floor((Math.random() * 212) + 1)}`
+}">
+   <span>Дальше</span>
 </button>
+
 {% endif %} {% endblock %}

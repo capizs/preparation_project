@@ -3,21 +3,12 @@
 <div class="bg-text-1">
   <h1>Мы в вас кончено верим, но с нашим сайтом вы будете уверены в себе;)</h1>
 </div>
-<img src="static/img/kitties.jpg" class="img" />
+<img src="static/kitties.jpg" class="img" />
 {% if current_user.is_authenticated %}
-<a
-  onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 212) + 1)}`"
-  class="btn-11"
-  href="#"
-  style="text-decoration: none"
-  >Ударения</a
->
+<a onclick="location.href = `/tasks/id=${Math.floor((Math.random() * 212) + 1)}`" class="btn-11" href="#"
+  style="text-decoration: none">Ударения</a>
 {% else %}
-<a
-  onclick="location.href = '/register'"
-  class="btn-11"
-  href="#"
-  style="text-decoration: none"
-  >Ударения(зарегистрируйтесь)
+<a onclick="location.href = '/register'" class="btn-11" href="#"
+  style="text-decoration: none">Ударения(зарегистрируйтесь)
 </a>
 {% endif %} {% endblock %}
